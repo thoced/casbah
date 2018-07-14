@@ -27,9 +27,13 @@ public   $mysql_id;
 
 private function __construct(){
 
-$mysql_id = mysql_connect('localhost', 'Vickx', '0100554');
-mysql_select_db('Vickx-3', $mysql_id);
-
+try
+{
+	$mysql_id = new PDO('mysql:host=localhost;dbname=Vickx-3;charset=utf8', 'Vickx', '0100554');
+}
+catch(Exception $e){
+ echo "error " . $e->getMessage();
+}
 
 }
 
@@ -42,7 +46,7 @@ return $instance;
 }
 
 public function getQuery(){
- return new Query($mysql_id);
+   return new Query($mysql_id);
 }
 
 	
@@ -53,11 +57,11 @@ class Query{
 	private $mid;
 	
 	public function __construct($mysql_id){
-		$this->$mid = $mysql_id;
+		$this->mid = $mysql_id;
 	}
 	
 	public function request($sql){
-		$result = mysql_query($mid, $sql);
+		$result = $mid->request($sql);
 		return $result;
 	
 	}

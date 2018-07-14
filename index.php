@@ -13,8 +13,9 @@ $query = $db->getQuery();
 
 $results = $query->request("select * from t_chars");
 
-foreach($results as $result ){
-echo '<br>' . $result["marque"];
+while($data = $results->fetch()){
 }
+
+echo "coucou";
 
 ?>
